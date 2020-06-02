@@ -1,51 +1,72 @@
-import React from 'react'
-import { Navbar, Nav, Icon, Dropdown } from 'rsuite';
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Menu } from "antd";
+import { withRouter } from "react-router-dom";
+import { HomeOutlined, LoginOutlined, LogoutOutlined } from "@ant-design/icons";
+import { AuthContext } from "context";
 
 class Header extends React.Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
-      activeKey: "home"
-    }
+      activeKey: "home",
+    };
   }
 
-  handleSelect = (activeKey) => {
-    this.setState({ activeKey });
-  }
+  handleSelect = (e) => {
+    this.setState({ activeKey: e.key });
+    this.props.history.push(e.key);
+  };
+
+  onLogout = () => {
+    this.context.onLogout();
+  };
 
   render() {
     const { activeKey } = this.state;
     return (
-      <div className="nav-wrapper">
-        <Navbar appearance="inverse" activeKey={activeKey} onSelect={this.handleSelect} >
-          <Navbar.Header>
-            <a href="/" className="navbar-brand logo">
-              RSUITE
-            </a>
-          </Navbar.Header>
-          <Navbar.Body>
-            <Nav activeKey={activeKey} onSelect={this.handleSelect}>
-              <Nav.Item componentClass={Link} eventKey="home" icon={<Icon icon="home" />} to='/'>
-                Home
-              </Nav.Item>
-              <Nav.Item componentClass={Link} eventKey="forum" to='/forum'>Forum</Nav.Item>
-              <Nav.Item componentClass={Link} eventKey="solutions">Solutions</Nav.Item>
-              <Nav.Item componentClass={Link} eventKey="products">Products</Nav.Item>
-              <Dropdown title="About">
-                <Dropdown.Item eventKey="4">Company</Dropdown.Item>
-                <Dropdown.Item eventKey="5">Team</Dropdown.Item>
-                <Dropdown.Item eventKey="6">Contact</Dropdown.Item>
-              </Dropdown>
-            </Nav>
-            <Nav pullRight>
-              <Nav.Item icon={<Icon icon="cog" />}>Settings</Nav.Item>
-            </Nav>
-          </Navbar.Body>
-        </Navbar>
-      </div>
+      <Menu
+        mode="horizontal"
+        selectedKeys={[activeKey]}
+        onClick={this.handleSelect}
+      >
+        <Menu.Item>
+          <a href="/" className="">
+            CENTER CARE
+          </a>
+        </Menu.Item>
+        <Menu.Item key="home" icon={<HomeOutlined />}>
+          Trang chủ
+        </Menu.Item>
+        <Menu.Item key="forum">Thông tin</Menu.Item>
+        <Menu.SubMenu title="Quản lý học viên">
+          <Menu.Item key="hocvien">Danh sách học viên</Menu.Item>
+        </Menu.SubMenu>
+        <Menu.SubMenu title="Quản lý học viên"></Menu.SubMenu>
+        <Menu.Item key="nhucauhoc">Đăng ký nhu cầu học</Menu.Item>
+        <Menu.Item key="lichhoc">Đăng ký lịch học</Menu.Item>
+        <Menu.Item key="diemdanh">Điểm danh</Menu.Item>
+        <Menu.Item key="baitapvenha">Bài tập về nhà</Menu.Item>
+        <Menu.Item key="kiemtratrenlop">Kiểm tra trên lớp</Menu.Item>
+        <Menu.Item key="updatedanhmuc">Câp nhật danh mục</Menu.Item>
+        <Menu.SubMenu title="Nguyễn Ngọc Quân" className="float-right">
+          <Menu.Item key="4">Company</Menu.Item>
+          <Menu.Item key="5">Team</Menu.Item>
+          <Menu.Item key="6">Contact</Menu.Item>
+        </Menu.SubMenu>
+        <Menu.Item icon={<LoginOutlined />} className="float-right">
+          Login
+        </Menu.Item>
+        <Menu.Item
+          icon={<LogoutOutlined />}
+          className="float-right"
+          onClick={this.onLogout}
+        >
+          Log out
+        </Menu.Item>
+      </Menu>
     );
   }
 }
 
-export default Header
+export default withRouter(Header);

@@ -1,4 +1,39 @@
-.navbar-brand {
-    padding: 18px 20px;
-    display: inline-block;
+body {
+  font-size: 16px;
+}
+
+.footer_bottom {
+  background-color: #3498ff;
+  padding: 20px 0px 0px;
+}
+.footer_bottom .item {
+  color: #fff;
+  padding-bottom: 30px;
+}
+
+.footer_bottom .item .text {
+  color: #fff;
+}
+.footer_bottom .text {
+  font-size: 16px;
+  line-height: 25px;
+}
+.footer_bottom .item .fa {
+  padding-right: 10px;
+}
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.login-form {
+}
+.error-input,
+.error-input:hover,
+.error-input:focus {
+  border: 2px solid red !important;
+  border-right-width: 2px !important;
+  box-shadow: none !important;
 }
