@@ -9,7 +9,7 @@ function CheckboxCustom({ name, onChange, children, ...rest }) {
   useEffect(() => {
     register({ name });
     return () => unregister(name);
-  }, []);
+  }, [register]);
 
   return (
     <Checkbox

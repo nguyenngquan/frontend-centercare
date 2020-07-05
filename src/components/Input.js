@@ -18,7 +18,7 @@ function InputCustom({
   useEffect(() => {
     register({ name }, validate);
     return () => unregister(name);
-  }, []);
+  }, [register]);
 
   const titleTooltip = useMemo(() => {
     return errors?.[name]?.message;

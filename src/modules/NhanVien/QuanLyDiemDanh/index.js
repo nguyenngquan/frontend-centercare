@@ -14,10 +14,12 @@ function ThongTinCaNhan() {
   const [oldDate, setOldDate] = useState(moment());
   const history = useHistory();
 
+  // Gọi api khi load page
   useEffect(() => {
     getListByMonthYear();
   }, []);
 
+  // Get danh sách những ngày đã điểm danh trong tháng
   const getListByMonthYear = async (
     month = moment().month(),
     year = moment().year()
@@ -36,10 +38,7 @@ function ThongTinCaNhan() {
     }
   };
 
-  function onPanelChange(value, mode) {
-    // console.log(value.format("YYYY-MM-DD"), mode);
-  }
-
+  // Gọi lại api getListByMonthYear khi thay đổi tháng hoặc năm
   const onChange = (date) => {
     const oldMonth = oldDate.month();
     const oldYear = oldDate.year();
@@ -51,6 +50,7 @@ function ThongTinCaNhan() {
     setOldDate(date);
   };
 
+  // Render ngày tô màu xanh là đã điểm danh
   const dateCellRender = (date) => {
     const day = date.format("YYYY-MM-DD");
     const da_diem_danh = listNgayDaDiemDanh.includes(day);
@@ -91,7 +91,6 @@ function ThongTinCaNhan() {
         <div></div>
       </div>
       <Calendar
-        onPanelChange={onPanelChange}
         mode="month"
         onChange={onChange}
         dateCellRender={dateCellRender}

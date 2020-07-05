@@ -13,10 +13,12 @@ function ThongTinCaNhan() {
   const [daDiemDanh, setDaDiemDanh] = useState("N/A");
   const { date } = useParams();
 
+  // Chạy hàm getByDate khi load page
   useEffect(() => {
     getByDate();
   }, []);
 
+  // gọi api diemDanhApi.getByDate get thông tin điểm danh của ngày đó
   const getByDate = async () => {
     let res = await diemDanhApi.getByDate(date);
     if (res?.success) {

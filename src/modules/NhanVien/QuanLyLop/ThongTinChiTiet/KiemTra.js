@@ -21,7 +21,10 @@ function KiemTra() {
 
   useEffect(() => {
     getBaiKiemTra(idLop);
+    // đang ký field idKiemTra vào form values của react-hook-form, tác dụng như 1 field ẩn ko hiển thị trên UI
     register({ name: "idKiemTra" });
+
+    // hàm return chạy ở lần useEffect tiếp theo để clean up (ở đây cụ thể là xóa đăng ký field idKiemTra)
     return () => {
       unregister("idKiemTra");
     };
