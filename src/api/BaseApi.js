@@ -1,6 +1,5 @@
 // base api
 import { AuthContext } from "../context";
-import { Notification } from "rsuite";
 
 var urlJoin = require("url-join");
 
@@ -20,19 +19,12 @@ export default class BaseApi {
   call = async (url, method, model, noAuth) => {
     var access_token = undefined;
     try {
-      var strToken = localStorage.getItem("token");
-      var token = JSON.parse(strToken);
-
-      if (token && token.access_token) {
-        access_token = token.access_token;
-      } else {
-        access_token = null;
-      }
+      var token = localStorage.getItem("token");
 
       var headers = {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + access_token,
+        Authorization: token,
       };
 
       if (noAuth) {
@@ -44,7 +36,7 @@ export default class BaseApi {
         headers: headers,
       };
 
-      if (method === "POST" || method === "PUT" || "DELETE") {
+      if (method === "POST" || method === "PUT" || "PATCH") {
         request.body = JSON.stringify(model);
       }
 
@@ -56,10 +48,10 @@ export default class BaseApi {
         localStorage.removeItem("token");
         window.location.reload();
       } else if (response.status === 403) {
-        Notification.error({
-          title: "Lỗi !!!",
-          description: responseJson.message,
-        });
+        // Notification.error({
+        //   title: "Lỗi !!!",
+        //   description: responseJson.message,
+        // });
       }
 
       return responseJson;
@@ -85,8 +77,12 @@ export default class BaseApi {
     return await this.call(url, "PUT", model);
   };
 
-  execute_delete = async (url, model) => {
-    return await this.call(url, "DELETE", model);
+  execute_patch = async (url, model) => {
+    return await this.call(url, "PATCH", model);
+  };
+
+  execute_delete = async (url) => {
+    return await this.call(url, "DELETE");
   };
 
   getToken = () => {

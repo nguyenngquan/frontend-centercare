@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
-import { Input, Tooltip } from "antd";
+import { Select, Tooltip } from "antd";
 
-function InputCustom({
+function SelectCustom({
   name,
   onChange,
   onFocus,
@@ -30,13 +30,13 @@ function InputCustom({
       visible={showTooltip && titleTooltip ? true : false}
       placement="topLeft"
     >
-      <Input
+      <Select
         {...props}
         className={`${className} ${titleTooltip ? "error-input" : ""}`}
         value={watch(name)}
-        onChange={(e) => {
-          onChange(e);
-          setValue(name, e.target.value, true);
+        onChange={(value, item) => {
+          onChange(value, item);
+          setValue(name, value, true);
         }}
         onFocus={(e) => {
           setShowTooltip(true);
@@ -50,7 +50,7 @@ function InputCustom({
     </Tooltip>
   );
 }
-InputCustom.propTypes = {
+SelectCustom.propTypes = {
   name: PropTypes.string,
   validate: PropTypes.object,
   onChange: PropTypes.func,
@@ -58,7 +58,7 @@ InputCustom.propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
 };
-InputCustom.defaultProps = {
+SelectCustom.defaultProps = {
   name: "",
   validate: {},
   onChange: () => {},
@@ -66,4 +66,4 @@ InputCustom.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
 };
-export default InputCustom;
+export default SelectCustom;

@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
-import { Input, Tooltip } from "antd";
+import { DatePicker, Tooltip } from "antd";
+import moment from "moment";
 
-function InputCustom({
+function DatePickerCustom({
   name,
   onChange,
   onFocus,
@@ -30,13 +31,13 @@ function InputCustom({
       visible={showTooltip && titleTooltip ? true : false}
       placement="topLeft"
     >
-      <Input
+      <DatePicker
         {...props}
         className={`${className} ${titleTooltip ? "error-input" : ""}`}
-        value={watch(name)}
-        onChange={(e) => {
-          onChange(e);
-          setValue(name, e.target.value, true);
+        value={watch(name) ? moment(watch(name)) : null}
+        onChange={(dm, ds) => {
+          onChange(ds);
+          setValue(name, ds, true);
         }}
         onFocus={(e) => {
           setShowTooltip(true);
@@ -50,7 +51,7 @@ function InputCustom({
     </Tooltip>
   );
 }
-InputCustom.propTypes = {
+DatePickerCustom.propTypes = {
   name: PropTypes.string,
   validate: PropTypes.object,
   onChange: PropTypes.func,
@@ -58,7 +59,7 @@ InputCustom.propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
 };
-InputCustom.defaultProps = {
+DatePickerCustom.defaultProps = {
   name: "",
   validate: {},
   onChange: () => {},
@@ -66,4 +67,4 @@ InputCustom.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
 };
-export default InputCustom;
+export default DatePickerCustom;

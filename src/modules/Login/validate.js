@@ -5,6 +5,6 @@ export const validateUserName = {
   },
   maxLength: {
     value: 30,
-    message: "Tài khoản không quá 10 ký tự",
+    message: "Tài khoản không quá 30 ký tự",
   },
 };

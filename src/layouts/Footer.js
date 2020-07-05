@@ -11,7 +11,7 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="footer">
         <div className="footer_bottom">
           <div className="container">
             <div className="row">

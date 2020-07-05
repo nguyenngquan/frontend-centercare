@@ -1,6 +1,6 @@
-const login = async (username, password) => {
+const login = async (username, password, isNhanVien = false) => {
   var baseUrl = process.env.REACT_APP_AUTH_URL;
-  console.log(baseUrl);
+  baseUrl += isNhanVien == true ? "nhanviens/" : "hocviens/";
   let res = await fetch(baseUrl, {
     method: "POST",
     mode: "cors", // no-cors, *cors, same-origin
